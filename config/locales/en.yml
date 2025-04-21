@@ -40,6 +40,7 @@ en:
   headlines:
     books: "Books"
     edit: "Editing book"
+    new: "New book"
   buttons:
     show: "Show this book"
     edit: "Edit this book"

@@ -9,6 +9,7 @@ ja:
   headlines:
     books: "本の一覧"
     edit: "本の編集"
+    new: "本の新規作成"
   helpers:
     submit:
       create: "作成する"
