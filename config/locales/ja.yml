@@ -6,10 +6,13 @@ ja:
         memo: "メモ"
         author: "著者"
         picture: "画像"
-  headlines:
-    books: "本の一覧"
-    edit: "本の編集"
-    new: "本の新規作成"
+  books:
+    index:
+      title: "本の一覧"
+    edit:
+      title: "本の編集"
+    new:
+      title: "本の新規作成"
   helpers:
     submit:
       create: "作成する"
