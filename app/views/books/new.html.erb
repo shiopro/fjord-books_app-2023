@@ -5,5 +5,5 @@
 <br>
 
 <nav class="page-nav">
-  <%= link_to I18n.t('buttons.back'), books_path %>
+  <%= link_to I18n.t('buttons.back', model: Book.model_name.human), books_path %>
 </nav>
