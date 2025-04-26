@@ -14,5 +14,5 @@
 </div>
 
 <nav class="page-nav">
-  <%= link_to I18n.t('buttons.new'), new_book_path %>
+  <%= link_to I18n.t('buttons.new', model: Book.model_name.human), new_book_path %>
 </nav>
