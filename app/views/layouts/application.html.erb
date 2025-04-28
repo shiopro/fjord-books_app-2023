@@ -14,7 +14,7 @@
     <% if user_signed_in? %>
       <div class="menu-container">
         <p>
-          <%= link_to 'Edit profile', edit_user_registration_path %>
+          <%= link_to 'Edit user', edit_user_registration_path %>
           <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
         </p>
       </div>
