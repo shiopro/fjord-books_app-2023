@@ -16,3 +16,10 @@ ja:
         address: 住所
         self_introduction: 自己紹介文
         icon: アイコン画像
+
+    errors:
+      models:
+        user:
+          attributes:
+            icon:
+              invalid_file_type: "は JPG, PNG, または GIF 形式のみアップロードできます"
