@@ -326,7 +326,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
-  letter_opener_web (~> 3.0)
+  letter_opener_web
   puma
   rails (~> 7.0.6)
   rubocop (~> 1.45.1)
