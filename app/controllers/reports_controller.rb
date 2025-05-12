@@ -2,6 +2,7 @@
 
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy]
+  before_action :authorize_user!, only: %i[edit update destroy]
 
   # GET /reports or /reports.json
   def index
@@ -21,7 +22,7 @@ class ReportsController < ApplicationController
 
   # POST /reports or /reports.json
   def create
-    @report = Report.new(report_params)
+    @report = current_user.reports.build(report_params)
 
     if @report.save
       redirect_to @report, notice: 'Report was successfully created.'
@@ -53,8 +54,12 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
+  def authorize_user!
+    redirect_to report_path, alert: '操作権限がありません。' unless @report.user == current_user
+  end
+
   # Only allow a list of trusted parameters through.
   def report_params
-    params.require(:report).permit(:title, :body, :user_id)
+    params.require(:report).permit(:title, :body)
   end
 end
