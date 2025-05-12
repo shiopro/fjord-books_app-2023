@@ -11,7 +11,11 @@
 
   <p>
     <strong>User:</strong>
-    <%= report.user_id %>
+    <%= report.user.name.present? ? report.user.name : report.user.email %>
   </p>
 
+  <p>
+    <strong>Date:</strong>
+    <%= report.created_at.to_date %>
+  </p>
 </div>
