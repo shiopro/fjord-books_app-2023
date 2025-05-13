@@ -11,6 +11,14 @@
   </head>
 
   <body class="<%= params[:action] %>">
+    <% if user_signed_in? %>
+      <div class="menu-container">
+        <p>
+          <%= link_to t('views.common.title_edit', name: i18n_pluralize(User.model_name.human)), edit_user_registration_path %> | <%= link_to t('views.common.title_index', name: i18n_pluralize(User.model_name.human)), users_path %>
+          <%= button_to t('.sign_out'), destroy_user_session_path, method: :delete %>
+        </p>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
