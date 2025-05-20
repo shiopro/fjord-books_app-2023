@@ -1,0 +1,7 @@
+<h2>コメントを編集</h2>
+
+<%= render "form", commentable: @comment.commentable, comment: @comment %>
+
+<nav class="page-nav">
+  <%= button_to "削除する", polymorphic_path([@commentable, @comment]), method: :delete, data: { confirm: "コメントが削除されました" } %>
+</nav>

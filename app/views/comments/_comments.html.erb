@@ -9,6 +9,9 @@
             <small>
               (<%= link_to comment.user.name_or_email, comment.user %> - <%= l comment.created_at, format: :short %>)
             </small>
+            <% if current_user == comment.user %>
+              <%= link_to "編集する", edit_polymorphic_path([commentable, comment]) %>
+            <% end %>
           </li>
         <% end %>
       <% end %>
