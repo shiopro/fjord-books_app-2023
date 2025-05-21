@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
     @report = current_user.reports.build(report_params)
 
     if @report.save
-      redirect_to @report, notice: 'Report was successfully created.'
+      redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1 or /reports/1.json
   def update
     if @report.update(report_params)
-      redirect_to @report, notice: 'Report was successfully updated.'
+      redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -47,7 +47,7 @@ class ReportsController < ApplicationController
   def destroy
     @report.destroy
 
-    redirect_to reports_url, notice: 'Report was successfully destroyed.'
+    redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)
   end
 
   private
@@ -58,7 +58,7 @@ class ReportsController < ApplicationController
   end
 
   def authorize_user!
-    redirect_to report_path, alert: '操作権限がありません。' unless @report.user == current_user
+    redirect_to report_path, alert: t('alerts.unauthorized') unless @report.user == current_user
   end
 
   # Only allow a list of trusted parameters through.

@@ -1,5 +1,5 @@
 <div class="comments-container">
-  <strong>Comment:</strong>
+  <strong><%= Comment.model_name.human %>:</strong>
   <% if comments.any? %>
     <ul>
       <% comments.each do |comment| %>
@@ -10,13 +10,13 @@
               (<%= link_to comment.user.name_or_email, comment.user %> - <%= l comment.created_at, format: :short %>)
             </small>
             <% if current_user == comment.user %>
-              <%= link_to "編集する", edit_polymorphic_path([commentable, comment]) %>
+              <%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_polymorphic_path([commentable, comment]) %>
             <% end %>
           </li>
         <% end %>
       <% end %>
     </ul>
   <% else %>
-    (<%= "コメントはまだありません" %>)
+    (<%= t('.no_comments') %>)
   <% end %>
 </div>

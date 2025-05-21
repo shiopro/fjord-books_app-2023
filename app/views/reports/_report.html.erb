@@ -1,21 +1,21 @@
 <div id="<%= dom_id report %>">
   <p>
-    <strong>Title:</strong>
+    <strong><%= Report.human_attribute_name(:title) %>:</strong>
     <%= report.title %>
   </p>
 
   <p>
-    <strong>Body:</strong>
+    <strong><%= Report.human_attribute_name(:body) %>:</strong>
     <%= report.body %>
   </p>
 
   <p>
-    <strong>User:</strong>
+    <strong><%= Report.human_attribute_name(:user) %>:</strong>
     <%= report.user.name.present? ? report.user.name : report.user.email %>
   </p>
 
   <p>
-    <strong>Date:</strong>
-    <%= report.created_at.to_date %>
+    <strong><%= Report.human_attribute_name(:date) %>:</strong>
+    <%= l(report.created_at.to_date) %>
   </p>
 </div>
