@@ -4,10 +4,10 @@
   <%= render @report %>
 </div>
 
-<% if @report.mentioned_reports.any? %>
+<% if @report.mentioning_reports.any? %>
   <h3>この日報で言及している日報</h3>
   <ul>
-    <% @report.mentioned_reports.each do |mentioned| %>
+    <% @report.mentioning_reports.each do |mentioned| %>
       <li>
         <%= link_to mentioned.title, report_path(mentioned) %>
       </li>
@@ -15,10 +15,10 @@
   </ul>
 <% end %>
 
-<% if @report.referencing_reports.any? %>
+<% if @report.mentioned_reports.any? %>
   <h3>この日報に言及している日報</h3>
   <ul>
-    <% @report.referencing_reports.each do |report| %>
+    <% @report.mentioned_reports.each do |report| %>
       <li>
         <%= link_to report.title, report_path(report) %>
       </li>

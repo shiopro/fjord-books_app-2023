@@ -5,10 +5,10 @@ class Report < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_many :report_mentions, class_name: 'ReportMention', foreign_key: 'source_report_id', inverse_of: :source_report, dependent: :destroy
-  has_many :mentioned_reports, through: :report_mentions, source: :target_report
+  has_many :mentioning_reports, through: :report_mentions, source: :target_report
 
   has_many :mentions_received, class_name: 'ReportMention', foreign_key: 'target_report_id', inverse_of: :target_report, dependent: :destroy
-  has_many :referencing_reports, through: :mentions_received, source: :source_report
+  has_many :mentioned_reports, through: :mentions_received, source: :source_report
 
   validates :title, presence: true
   validates :content, presence: true
@@ -27,6 +27,6 @@ class Report < ApplicationRecord
     report_mentions.destroy_all
     ids = content.to_s.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.uniq
     reports = Report.where(id: ids).where.not(id:)
-    self.mentioned_reports = reports
+    self.mentioning_reports = reports
   end
 end
