@@ -39,4 +39,8 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:content)
   end
+
+  def render_commentable_show
+    redirect_to @commentable, flash: { alert: @comment.errors.full_messages.to_sentence }
+  end
 end

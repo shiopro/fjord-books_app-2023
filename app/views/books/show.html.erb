@@ -1,5 +1,9 @@
 <h1><%= t('views.common.title_show', name: Book.model_name.human) %></h1>
 
+<% if flash[:alert] %>
+  <div class="alert"><%= flash[:alert] %></div>
+<% end %>
+
 <div class="show-item">
   <%= render @book %>
 </div>
