@@ -11,6 +11,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   def name_or_email
-    name.empty? ? email : name
+    name.presence || email
   end
 end
