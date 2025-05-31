@@ -17,6 +17,8 @@ class CommentsController < ApplicationController
   end
 
   def update
+    return redirect_to root_path, alert: '権限がありません' unless @comment.user == current_user
+
     if @comment.update(comment_params)
       redirect_to @commentable, notice: t('controllers.common.notice_update', name: Comment.model_name.human)
     else
@@ -25,8 +27,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
+    return redirect_to root_path, alert: '権限がありません' unless @comment.user == current_user
 
+    @comment.destroy
     redirect_to @commentable, notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
   end
 
