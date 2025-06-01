@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
       redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human)
     else
       @comments = @commentable.comments
-      render_commentable_show
+      redirect_to @commentable, flash: { alert: @comment.errors.full_messages.to_sentence }
     end
   end
 
@@ -41,9 +41,5 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
-  end
-
-  def render_commentable_show
-    redirect_to @commentable, flash: { alert: @comment.errors.full_messages.to_sentence }
   end
 end
