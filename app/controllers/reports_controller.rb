@@ -27,7 +27,7 @@ class ReportsController < ApplicationController
     end
 
     redirect_to @report, notice: '日報を作成しました'
-  rescue => e
+  rescue StandardError => e
     flash.now[:alert] = "保存に失敗しました: #{e.message}"
     render :new, status: :unprocessable_entity
   end

@@ -25,10 +25,7 @@ class Report < ApplicationRecord
     report_mentions.destroy_all
     ids = content.to_s.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.uniq
     reports = Report.where(id: ids).where.not(id:)
-
-    if reports.size != ids.size
-      raise '一部の言及先が存在しません'
-    end
+    raise '一部の言及先が存在しません' if reports.size != ids.size
 
     self.mentioning_reports = reports
   end
