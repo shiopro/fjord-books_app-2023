@@ -13,8 +13,6 @@ class Report < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
 
-  after_save :save_mentions
-
   def editable?(target_user)
     user == target_user
   end
@@ -23,10 +21,15 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
-  def save_mentions
+  def save_mentions!
     report_mentions.destroy_all
     ids = content.to_s.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.uniq
     reports = Report.where(id: ids).where.not(id:)
+
+    if reports.size != ids.size
+      raise '一部の言及先が存在しません'
+    end
+
     self.mentioning_reports = reports
   end
 end
