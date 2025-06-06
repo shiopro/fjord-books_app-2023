@@ -7,13 +7,12 @@ class CommentsController < ApplicationController
   def edit; end
 
   def create
-    @comment = @commentable.comments.build(comment_params)
-    @comment.user = current_user
-    if @comment.save
+    comment = @commentable.comments.build(comment_params)
+    comment.user = current_user
+    if comment.save
       redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human)
     else
-      @comments = @commentable.comments
-      redirect_to @commentable, flash: { alert: @comment.errors.full_messages.to_sentence }
+      redirect_to @commentable, flash: { alert: comment.errors.full_messages.to_sentence }
     end
   end
 
