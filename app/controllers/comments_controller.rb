@@ -2,7 +2,7 @@
 
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[edit update destroy]
-  before_action :authorize_user!, only: %i[edit update destroy]
+  before_action :ensure_comment_owner!, only: %i[edit update destroy]
 
   def edit; end
 
@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
 
   private
 
-  def authorize_user!
+  def ensure_comment_owner!
     redirect_to root_path, alert: '権限がありません' unless @comment.user == current_user
   end
 
