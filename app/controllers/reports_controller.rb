@@ -2,7 +2,7 @@
 
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy]
-  before_action :authorize_user!, only: %i[edit update destroy]
+  before_action :ensure_comment_owner!, only: %i[edit update destroy]
 
   # GET /reports
   def index
@@ -57,7 +57,7 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
-  def authorize_user!
+  def ensure_comment_owner!
     redirect_to report_path, alert: t('alerts.unauthorized') unless @report.user == current_user
   end
 

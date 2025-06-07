@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
   private
 
   def ensure_comment_owner!
-    redirect_to root_path, alert: '権限がありません' unless @comment.user == current_user
+    redirect_to root_path, alert: t('alerts.unauthorized') unless @comment.user == current_user
   end
 
   def set_comment
