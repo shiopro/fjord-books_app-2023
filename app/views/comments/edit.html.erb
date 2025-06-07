@@ -1,0 +1,7 @@
+<h2><%= t('views.common.title_edit', name: Comment.model_name.human.downcase) %></h2>
+
+<%= render "form", commentable: @commentable, comment: @comment %>
+
+<nav class="page-nav">
+  <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([@commentable, @comment]), method: :delete, data: { turbo_confirm: t('views.common.delete_confirm') } %>
+</nav>
