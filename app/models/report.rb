@@ -25,7 +25,12 @@ class Report < ApplicationRecord
     report_mentions.destroy_all
     ids = content.to_s.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.uniq
     reports = Report.where(id: ids).where.not(id:)
-    raise '一部の言及先が存在しません' if reports.size != ids.size
+    missing_ids = ids - reports.pluck(:id).map(&:to_s)
+
+    if missing_ids.any?
+      missing_urls = missing_ids.map { |id| "http://localhost:3000/reports/#{id}" }
+      raise "以下のリンクは存在しません #{missing_urls.join(', ')}" if reports.size != ids.size
+    end
 
     self.mentioning_reports = reports
   end
