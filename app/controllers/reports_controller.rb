@@ -21,19 +21,29 @@ class ReportsController < ApplicationController
   def create
     @report = current_user.reports.new(report_params)
 
-    if @report.save
-      redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
-    else
-      render :new, status: :unprocessable_entity
+    Report.transaction do
+      @report.save!
+      @report.save_mentions!
     end
+
+    redirect_to @report, notice: '日報を作成しました'
+  rescue StandardError => e
+    flash.now[:alert] = "保存に失敗しました: #{e.message}"
+    render :new, status: :unprocessable_entity
   end
 
   def update
-    if @report.update(report_params)
-      redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
-    else
-      render :edit, status: :unprocessable_entity
+    @report.assign_attributes(report_params)
+
+    Report.transaction do
+      @report.save!
+      @report.save_mentions!
     end
+
+    redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
+  rescue StandardError => e
+    flash.now[:alert] = "更新に失敗しました: #{e.message}"
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy
