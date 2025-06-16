@@ -87,3 +87,5 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'kaminari'
 gem 'rails_autolink'
+# 1.3.5以上はerblintでエラーが発生するので1.3.4を指定
+gem 'concurrent-ruby', '1.3.4'
