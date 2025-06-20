@@ -7,6 +7,10 @@
 default_user:
   name: Foo
   email: foo@example.com
+
+another_user:
+  name: Bob
+  email: bob@example.com
 # column: value
 #
 # two: {}

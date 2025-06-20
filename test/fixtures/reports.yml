@@ -1,11 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: one
-  title: MyString
-  content: MyText
+foo:
+  id: 1
+  user: default_user
+  title: テストタイトル
+  content: テスト
+  created_at: 2025-06-18
 
-two:
-  user: two
-  title: MyString
-  content: MyText
+bob:
+  id: 2
+  user: another_user
+  title: テスト
+  content: "http://localhost:3000/reports/1"
