@@ -7,10 +7,12 @@
 default_user:
   name: Foo
   email: foo@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
 
 another_user:
   name: Bob
   email: bob@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password1') %>
 # column: value
 #
 # two: {}
