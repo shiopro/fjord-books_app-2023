@@ -15,7 +15,12 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#created_on' do
-    report = reports(:foo)
+    report = Report.create!(
+      title: 'テストです',
+      content: 'テスト',
+      user: users(:default_user),
+      created_at: Time.zone.local(2025, 6, 18, 12, 0, 0)
+    )
 
     assert_equal Date.new(2025, 6, 18), report.created_on
     assert_not_equal Date.new(2025, 6, 17), report.created_on

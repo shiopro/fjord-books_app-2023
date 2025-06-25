@@ -5,7 +5,6 @@ foo:
   user: default_user
   title: テストタイトル
   content: テスト
-  created_at: 2025-06-18
 
 bob:
   id: 2
