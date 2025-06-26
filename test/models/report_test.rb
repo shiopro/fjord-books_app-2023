@@ -35,10 +35,27 @@ class ReportTest < ActiveSupport::TestCase
     assert_includes(report2.mentioning_reports, report1)
     assert_not_includes(report1.mentioning_reports, report2)
 
+    report1.update(content: 'http://localhost:3000/reports/2')
     report2.update(content: 'テストです')
 
+    report1.send(:save_mentions)
     report2.send(:save_mentions)
 
+    assert_includes(report1.reload.mentioning_reports, report2)
     assert_not_includes(report2.reload.mentioning_reports, report1)
+
+    report3 = Report.create!(id: 3, user: users(:another_user), title: 'テスト用', content: 'テストテキスト')
+    report1.update(content: 'http://localhost:3000/reports/3')
+
+    assert_includes(report1.reload.mentioning_reports, report3)
+
+    report1.update(content: '文章のみです')
+    report1.send(:save_mentions)
+
+    assert_not_includes(report1.reload.mentioning_reports, report2)
+
+    report2.destroy
+
+    assert_not_includes(report1.reload.mentioning_reports, report2)
   end
 end
