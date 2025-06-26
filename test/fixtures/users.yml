@@ -5,13 +5,13 @@
 # below each fixture, per the syntax in the comments below
 #
 default_user:
-  name: Foo
-  email: foo@example.com
+  name: 山田太郎
+  email: yamada@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
 
 another_user:
-  name: Bob
-  email: bob@example.com
+  name: 田中一郎
+  email: tanaka@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password1') %>
 # column: value
 #
