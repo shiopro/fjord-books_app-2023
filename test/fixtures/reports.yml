@@ -1,12 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-foo:
+one:
   id: 1
   user: default_user
   title: テストタイトル
   content: テスト
 
-bob:
+two:
   id: 2
   user: another_user
   title: テスト

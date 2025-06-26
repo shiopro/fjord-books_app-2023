@@ -6,7 +6,7 @@ class ReportTest < ActiveSupport::TestCase
   fixtures :reports
   fixtures :users
   test '#editable?' do
-    report = reports(:foo)
+    report = reports(:one)
     user = users(:default_user)
     other_user = users(:another_user)
 
@@ -27,35 +27,39 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#save_mentions' do
-    report1 = reports(:foo)
-    report2 = reports(:bob)
+    mentioned = reports(:one)
+    mentioning = reports(:two)
 
-    report2.send(:save_mentions)
+    mentioning.send(:save_mentions)
 
-    assert_includes(report2.mentioning_reports, report1)
-    assert_not_includes(report1.mentioning_reports, report2)
+    assert_includes(mentioning.mentioning_reports, mentioned)
+    assert_not_includes(mentioned.mentioning_reports, mentioning)
 
-    report1.update(content: 'http://localhost:3000/reports/2')
-    report2.update(content: 'テストです')
+    # mentioned の content に mentioning のリンクを埋め込み、逆メンション
+    mentioned.update(content: 'http://localhost:3000/reports/2')
+    mentioning.update(content: 'テストです')
 
-    report1.send(:save_mentions)
-    report2.send(:save_mentions)
+    mentioned.send(:save_mentions)
+    mentioning.send(:save_mentions)
 
-    assert_includes(report1.reload.mentioning_reports, report2)
-    assert_not_includes(report2.reload.mentioning_reports, report1)
+    assert_includes(mentioned.reload.mentioning_reports, mentioning)
+    assert_not_includes(mentioning.reload.mentioning_reports, mentioned)
 
-    report3 = Report.create!(id: 3, user: users(:another_user), title: 'テスト用', content: 'テストテキスト')
-    report1.update(content: 'http://localhost:3000/reports/3')
+    # 新規レポートを作成し、mentioned が新規レポートをメンション
+    another_report = Report.create!(id: 3, user: users(:another_user), title: 'テスト用', content: 'テストテキスト')
+    mentioned.update(content: 'http://localhost:3000/reports/3')
 
-    assert_includes(report1.reload.mentioning_reports, report3)
+    assert_includes(mentioned.reload.mentioning_reports, another_report)
 
-    report1.update(content: '文章のみです')
-    report1.send(:save_mentions)
+    # メンションを削除するケース
+    mentioned.update(content: '文章のみです')
+    mentioned.send(:save_mentions)
 
-    assert_not_includes(report1.reload.mentioning_reports, report2)
+    assert_not_includes(mentioned.reload.mentioning_reports, mentioning)
 
-    report2.destroy
+    # メンション対象の日報を削除するケース
+    mentioned.destroy
 
-    assert_not_includes(report1.reload.mentioning_reports, report2)
+    assert_not_includes(mentioning.reload.mentioning_reports, mentioned)
   end
 end

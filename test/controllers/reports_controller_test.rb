@@ -10,7 +10,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:default_user)
     sign_in @user
-    @report = reports(:foo)
+    @report = reports(:one)
   end
 
   test 'should get index' do

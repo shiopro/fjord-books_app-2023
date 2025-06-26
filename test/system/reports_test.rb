@@ -8,7 +8,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   setup do
     @user = users(:default_user)
-    @report = reports(:foo)
+    @report = reports(:one)
 
     visit new_user_session_path
 
