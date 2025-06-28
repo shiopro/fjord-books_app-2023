@@ -29,7 +29,7 @@ class ReportTest < ActiveSupport::TestCase
     mentioned = reports(:one)
     mentioning = reports(:two)
 
-    mentioning.send(:save_mentions)
+    mentioning.save
 
     assert_includes(mentioning.mentioning_reports, mentioned)
     assert_not_includes(mentioned.mentioning_reports, mentioning)
@@ -37,9 +37,6 @@ class ReportTest < ActiveSupport::TestCase
     # mentioned の content に mentioning のリンクを埋め込み、逆メンション
     mentioned.update(content: 'http://localhost:3000/reports/2')
     mentioning.update(content: 'テストです')
-
-    mentioned.send(:save_mentions)
-    mentioning.send(:save_mentions)
 
     assert_includes(mentioned.reload.mentioning_reports, mentioning)
     assert_not_includes(mentioning.reload.mentioning_reports, mentioned)
@@ -52,7 +49,6 @@ class ReportTest < ActiveSupport::TestCase
 
     # メンションを削除するケース
     mentioned.update(content: '文章のみです')
-    mentioned.send(:save_mentions)
 
     assert_not_includes(mentioned.reload.mentioning_reports, mentioning)
 
