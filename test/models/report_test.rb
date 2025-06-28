@@ -15,7 +15,7 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#created_on' do
-    report = Report.create!(
+    report = Report.new(
       title: 'テストです',
       content: 'テスト',
       user: users(:default_user),
@@ -23,7 +23,6 @@ class ReportTest < ActiveSupport::TestCase
     )
 
     assert_equal Date.new(2025, 6, 18), report.created_on
-    assert_not_equal Date.new(2025, 6, 17), report.created_on
   end
 
   test '#save_mentions' do
